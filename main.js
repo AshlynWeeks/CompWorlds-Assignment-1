@@ -90,13 +90,10 @@ Bat.prototype.draw = function () {
 Bat.prototype.update = function () {
    // this.x -= 3; //for flying
 
-       //this.y = Math.pow(this.x, 2)
-
     if (this.state === "flying") {
         this.x -= 3; //for flying
 
         this.y = (-.95*this.x)+750;
-        //this.x -= 3; //for flying
         
     }
 
@@ -141,6 +138,7 @@ function Goul(game, spritesheet) {
     this.ctx = game.ctx;
     this.state = "walking";
     this.playingTempAnimation = "false";
+    this.jumping = "false";
 
 }
 Goul.prototype.draw = function () {
@@ -150,12 +148,21 @@ Goul.prototype.draw = function () {
 }
 
 Goul.prototype.update = function () {
+    this.x += this.game.clockTick * this.speed;
+
+    console.log(this.x + ", " + this.y);
+
     if (this.state = "walking") this.x += 2; //for walking
+    if(this.x >=296){
+        this.y = Math.sqrt(2500+(this.x-350)*(this.x-350)) + 200;
+    } 
+     
     if(this.x > 500 && this.playingTempAnimation === "false"){
         Goul.prototype.die.call(this);
     }
 
-    this.x += this.game.clockTick * this.speed;
+    
+    //this.x += this.game.clockTick * this.speed;
     Entity.prototype.update.call(this);
 
 }
